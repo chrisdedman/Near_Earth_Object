@@ -57,10 +57,10 @@ def asteroid_orbiting_bodies(NEO, DATES, element, object):
     """Get each asteroid orbiting bodies"""
 
     data = get(NEO[DATES[element]][object]['links']['self']).json()
-    v = set()
+    passing_by_list = set()
     for i in range(len(data['close_approach_data'])):
-        v.add(data['close_approach_data'][i]['orbiting_body'])
-    return v;
+        passing_by_list.add(data['close_approach_data'][i]['orbiting_body'])
+    return passing_by_list;
 
 
 def start(BASE_URL, START_DATE, END_DATE, API_KEY):
