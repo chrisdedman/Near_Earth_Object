@@ -1,3 +1,4 @@
+from collections import defaultdict
 from requests import get
 from datetime import datetime
 import os
@@ -12,14 +13,11 @@ def get_data(BASE_URL, START_DATE, END_DATE, API_KEY):
     return None
 
 def get_info(NEO, DATES):
-    """Get a list of Near Earth Object informations"""
-
-    infoList = [];
+    """Get a list of name of Near Earth Object"""
+    infoNEO = defaultdict(list)
     for element in range(len(DATES)):
         for object in range(len(NEO[DATES[element]])):
-            
-            infoList.append(
-                [
+            infoNEO[object+1] = [
                     NEO[DATES[element]][object]['id'],
                     NEO[DATES[element]][object]['name'],
                     NEO[DATES[element]][object]['is_potentially_hazardous_asteroid'],
@@ -27,28 +25,43 @@ def get_info(NEO, DATES):
                     NEO[DATES[element]][object]['close_approach_data'][0]['orbiting_body'],
                     NEO[DATES[element]][object]['estimated_diameter']['meters'],
                     NEO[DATES[element]][object]['estimated_diameter']['feet'],
+                    NEO[DATES[element]][object]['close_approach_data'][0]['relative_velocity']['kilometers_per_hour'],
+                    NEO[DATES[element]][object]['close_approach_data'][0]['relative_velocity']['miles_per_hour'],
+                    asteroid_orbiting_bodies(NEO, DATES, element, object)
                 ]
-            )
 
-    return infoList;
+    return infoNEO;
 
 def print_info(object_info):
     """Print the informations for each NEO"""
 
-    for i in range(len(object_info)):
+    for i in object_info:
             print(
-                f"Object #{i+1}",
+                f"Object #{i}",
                 "\n\t-ID ->",object_info[i][0],
                 "\n\t-Name ->", object_info[i][1],
                 "\n\t-Hazardous ->",object_info[i][2],
                 "\n\t-Close Approach Date ->",object_info[i][3],
-                "\n\t-Orbiting Body ->",object_info[i][4],
+                "\n\t-Current Orbiting Body ->",object_info[i][4],
                 f"\n\t-Diametre Meter:\n\t\t*Min -> {int(object_info[i][5]['estimated_diameter_min'])}m",
                                     f"\n\t\t*Max -> {int(object_info[i][5]['estimated_diameter_max'])}m",
                 f"\n\t-Diameter Feet:\n\t\t*Min -> {int(object_info[i][6]['estimated_diameter_min'])}ft",
                                    f"\n\t\t*Max -> {int(object_info[i][6]['estimated_diameter_max'])}ft",
+                f"\n\t-Relative Velocity:\n\t\t*Km/h -> {object_info[i][7]}",
+                                   f"\n\t\t*Miles/h -> {object_info[i][8]}",
+                "\n\t-All Orbiting Bodies ->", object_info[i][9],
                                    '\n'
             )
+
+def asteroid_orbiting_bodies(NEO, DATES, element, object):
+    """Get each asteroid orbiting bodies"""
+
+    data = get(NEO[DATES[element]][object]['links']['self']).json()
+    v = set()
+    for i in range(len(data['close_approach_data'])):
+        v.add(data['close_approach_data'][i]['orbiting_body'])
+    return v;
+
 
 def start(BASE_URL, START_DATE, END_DATE, API_KEY):
     """Start the program"""
@@ -65,7 +78,7 @@ def start(BASE_URL, START_DATE, END_DATE, API_KEY):
         object_info = get_info(NEO, DATES);
       
         print_info(object_info);
-        print("Number of Near Earth Object:", num_of_object);
+        print("Number of Near Earth Object Detected ->", num_of_object);
 
     else:
         print("Data No Found!");
