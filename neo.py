@@ -13,7 +13,8 @@ def get_data(BASE_URL, START_DATE, END_DATE, API_KEY):
     return None
 
 def get_info(NEO, DATES):
-    """Get a list of name of Near Earth Object"""
+    """Get a list of information about Near Earth Object"""
+
     infoNEO = defaultdict(list)
     for element in range(len(DATES)):
         for object in range(len(NEO[DATES[element]])):
