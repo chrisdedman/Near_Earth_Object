@@ -41,7 +41,7 @@ def get_info(NEO, DATES):
     infoNEO = defaultdict(list)
     for element in range(len(DATES)):
         for object in range(len(NEO[DATES[element]])):
-            infoNEO[object+1] = struct(NEO, DATES, element, object);
+            infoNEO[len(infoNEO)+1] = struct(NEO, DATES, element, object);
                 
     return infoNEO;
 
