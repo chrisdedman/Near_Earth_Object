@@ -141,5 +141,5 @@ def main():
     start(BASE_URL, START_DATE, END_DATE, API_KEY);
 
 
-if "__name__" != "__main__":
+if __name__ == "__main__":
     main()
