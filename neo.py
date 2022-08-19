@@ -75,24 +75,24 @@ def print_info(object_info):
     """Print the informations for each NEO"""
 
     for i in object_info:
-            print(
-                f"ASTEROID #{i}",
-                "\n\t-ID ->",object_info[i]['id'],
-                "\n\t-Name ->", object_info[i]['name'],
-                f"\n\t-Observation Dates:\n\t\t*First -> {object_info[i]['first_observation']}",
-                                   f"\n\t\t*Last -> {object_info[i]['last_observation']}",
-                "\n\t-Hazardous ->",object_info[i]['hazardous'],
-                "\n\t-Close Approach Date ->",object_info[i]['close_approach_date'],
-                "\n\t-Current Orbiting Body ->",object_info[i]['current_orbiting_body'],
-                f"\n\t-Diametre:\n\t\t*Min -> {int(object_info[i]['diameter_meter']['estimated_diameter_min'])}m /", 
-                                                     f"{int(object_info[i]['diameter_feet']['estimated_diameter_min'])}ft",
-                                    f"\n\t\t*Max -> {int(object_info[i]['diameter_meter']['estimated_diameter_max'])}m /", 
-                                                  f"{int(object_info[i]['diameter_feet']['estimated_diameter_max'])}ft",
-                f"\n\t-Relative Velocity:\n\t\t*Km/h -> {object_info[i]['velocity_km']}",
-                                   f"\n\t\t*Miles/h -> {object_info[i]['velocity_miles']}",
-                "\n\t-All Orbiting Bodies ->", *object_info[i]['orbiting_bodies'],
-                "\n\t-Orbit Class Type:\n\t\t*", object_info[i]['orbiting_class_type'],"->", object_info[i]['orbiting_type_description'],
-            )
+            print(f"ASTEROID #{i}")
+            print(f"\t-ID -> {object_info[i]['id']}")
+            print(f"\t-Name -> {object_info[i]['name']}")
+            print(f"\t-Observation Dates:")
+            print(f"\t\t*First -> {object_info[i]['first_observation']}")
+            print(f"\t\t*Last -> {object_info[i]['last_observation']}")
+            print(f"\t-Hazardous -> {object_info[i]['hazardous']}")
+            print(f"\t-Close Approach Date -> {object_info[i]['close_approach_date']}")
+            print(f"\t-Current Orbiting Body -> {object_info[i]['current_orbiting_body']}")
+            print(f"\t-Diametre:")
+            print(f"\t\t*Min -> {int(object_info[i]['diameter_meter']['estimated_diameter_min'])}m / {int(object_info[i]['diameter_feet']['estimated_diameter_min'])}ft")
+            print(f"\t\t*Max -> {int(object_info[i]['diameter_meter']['estimated_diameter_max'])}m / {int(object_info[i]['diameter_feet']['estimated_diameter_max'])}ft")
+            print(f"\t-Relative Velocity:")
+            print(f"\t\t*Km/h -> {object_info[i]['velocity_km']}")
+            print(f"\t\t*Miles/h -> {object_info[i]['velocity_miles']}")
+            print(f"\t-All Orbiting Bodies -> {object_info[i]['orbiting_bodies']}")
+            print(f"\t-Orbit Class Type:")
+            print(f"\t\t*{object_info[i]['orbiting_class_type']} -> {object_info[i]['orbiting_type_description']}")
     
 def start(BASE_URL, API_KEY, start_date, end_date):
     """Start the program"""
