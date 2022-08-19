@@ -71,28 +71,28 @@ def asteroid_observation_dates(individual_asteroid_data):
 
     return observation_dates;
 
-def print_info(object_info):
-    """Print the informations for each NEO"""
+def print_neo_info(object_info):
+    """Print the informations for each asteroid"""
 
-    for i in object_info:
-            print(f"ASTEROID #{i}")
-            print(f"\t-ID -> {object_info[i]['id']}")
-            print(f"\t-Name -> {object_info[i]['name']}")
+    for asteroid in object_info:
+            print(f"ASTEROID #{asteroid}")
+            print(f"\t-ID -> {object_info[asteroid]['id']}")
+            print(f"\t-Name -> {object_info[asteroid]['name']}")
             print(f"\t-Observation Dates:")
-            print(f"\t\t*First -> {object_info[i]['first_observation']}")
-            print(f"\t\t*Last -> {object_info[i]['last_observation']}")
-            print(f"\t-Hazardous -> {object_info[i]['hazardous']}")
-            print(f"\t-Close Approach Date -> {object_info[i]['close_approach_date']}")
-            print(f"\t-Current Orbiting Body -> {object_info[i]['current_orbiting_body']}")
+            print(f"\t\t*First -> {object_info[asteroid]['first_observation']}")
+            print(f"\t\t*Last -> {object_info[asteroid]['last_observation']}")
+            print(f"\t-Hazardous -> {object_info[asteroid]['hazardous']}")
+            print(f"\t-Close Approach Date -> {object_info[asteroid]['close_approach_date']}")
+            print(f"\t-Current Orbiting Body -> {object_info[asteroid]['current_orbiting_body']}")
             print(f"\t-Diametre:")
-            print(f"\t\t*Min -> {int(object_info[i]['diameter_meter']['estimated_diameter_min'])}m / {int(object_info[i]['diameter_feet']['estimated_diameter_min'])}ft")
-            print(f"\t\t*Max -> {int(object_info[i]['diameter_meter']['estimated_diameter_max'])}m / {int(object_info[i]['diameter_feet']['estimated_diameter_max'])}ft")
+            print(f"\t\t*Min -> {int(object_info[asteroid]['diameter_meter']['estimated_diameter_min'])}m / {int(object_info[asteroid]['diameter_feet']['estimated_diameter_min'])}ft")
+            print(f"\t\t*Max -> {int(object_info[asteroid]['diameter_meter']['estimated_diameter_max'])}m / {int(object_info[asteroid]['diameter_feet']['estimated_diameter_max'])}ft")
             print(f"\t-Relative Velocity:")
-            print(f"\t\t*Km/h -> {object_info[i]['velocity_km']}")
-            print(f"\t\t*Miles/h -> {object_info[i]['velocity_miles']}")
-            print(f"\t-All Orbiting Bodies -> {object_info[i]['orbiting_bodies']}")
+            print(f"\t\t*Km/h -> {object_info[asteroid]['velocity_km']}")
+            print(f"\t\t*Miles/h -> {object_info[asteroid]['velocity_miles']}")
+            print(f"\t-All Orbiting Bodies -> {object_info[asteroid]['orbiting_bodies']}")
             print(f"\t-Orbit Class Type:")
-            print(f"\t\t*{object_info[i]['orbiting_class_type']} -> {object_info[i]['orbiting_type_description']}")
+            print(f"\t\t*{object_info[asteroid]['orbiting_class_type']} -> {object_info[asteroid]['orbiting_type_description']}")
     
 def start(BASE_URL, API_KEY, start_date, end_date):
     """Start the program"""
@@ -107,7 +107,7 @@ def start(BASE_URL, API_KEY, start_date, end_date):
             dates.append(start_date[:-2]+"%02d" % int(str(i)));
 
         object_info = get_info(near_earth_object, dates);
-        print_info(object_info);
+        print_neo_info(object_info);
         
         print("\nNumber of Near Earth Object Detected ->", num_of_object);
 
