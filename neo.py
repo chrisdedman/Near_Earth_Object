@@ -17,7 +17,7 @@ def get_asteroid_info(near_earth_object, dates, element_key, object_type):
 
     asteroid_info   = defaultdict(list)
     asteroid        = near_earth_object[dates[element_key]][object_type]
-    
+
     asteroid_close_approach_data    = near_earth_object[dates[element_key]][object_type]['close_approach_data'][0]
     individual_asteroid_data        = get(near_earth_object[dates[element_key]][object_type]['links']['self']).json()
     asteroid_observation_dates      = get_asteroid_observation_dates(individual_asteroid_data);
@@ -48,7 +48,7 @@ def get_neo_info(near_earth_object, dates):
     for element_key, item in enumerate(dates):
         for object_type in range(len(near_earth_object[item])):
             neo_info[len(neo_info)+1] = get_asteroid_info(near_earth_object, dates, element_key, object_type);
-                
+
     return neo_info;
 
 def get_asteroid_orbiting_bodies(individual_asteroid_data):
@@ -62,7 +62,7 @@ def get_asteroid_orbiting_bodies(individual_asteroid_data):
 
 def get_asteroid_orbit_class(individual_asteroid_data):
     """Get each asteroid orbiting class"""
-    
+
     orbit_class = individual_asteroid_data['orbital_data']['orbit_class'];
 
     return orbit_class;
@@ -97,7 +97,7 @@ def print_neo_info(neo_info):
             print(*neo_info[asteroid]['orbiting_bodies'], sep=', ')
             print(f"\t- Orbit Class Type:")
             print(f"\t\t*{neo_info[asteroid]['orbit_class_type']} -> {neo_info[asteroid]['orbit_type_description']}")
-                            
+
 def fetch_and_print_asteroid_info(BASE_URL, API_KEY, start_date, end_date):
     """Fetch and print each information for each asteroid"""
 
@@ -112,7 +112,7 @@ def fetch_and_print_asteroid_info(BASE_URL, API_KEY, start_date, end_date):
 
         neo_info = get_neo_info(near_earth_object, dates);
         print_neo_info(neo_info);
-        
+
         print("\nNumber of Near Earth Object Detected ->", num_of_object);
 
     else:
