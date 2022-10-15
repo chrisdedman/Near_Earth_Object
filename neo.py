@@ -11,6 +11,7 @@ def get_api_data(BASE_URL, API_KEY, start_date, end_date):
         return API.json()
     return None
 
+
 def get_asteroid_info(near_earth_object, dates, element_key, object_type):
     """Get Asteroid Info Structured into a Dictionary"""
     asteroid_info   = defaultdict(list)
@@ -39,22 +40,28 @@ def get_asteroid_info(near_earth_object, dates, element_key, object_type):
 
     return asteroid_info
 
+
 def get_neo_info(near_earth_object, dates):
     """Get a list of informations about each Near Earth Object"""
     neo_info = defaultdict(list)
     for element_key, item in enumerate(dates):
         for object_type in range(len(near_earth_object[item])):
-            neo_info[len(neo_info)+1] = get_asteroid_info(near_earth_object, dates, element_key, object_type)
+            neo_info[len(neo_info)+1] = get_asteroid_info(near_earth_object,
+                                                          dates,
+                                                          element_key,
+                                                          object_type)
 
     return neo_info
+
 
 def get_asteroid_orbiting_bodies(individual_asteroid_data):
     """Get each asteroid orbiting bodies"""
     passing_by_list = set()
-    for i, item in enumerate(individual_asteroid_data['close_approach_data']):
+    for _, item in enumerate(individual_asteroid_data['close_approach_data']):
         passing_by_list.add(item['orbiting_body'])
 
     return passing_by_list
+
 
 def get_asteroid_orbit_class(individual_asteroid_data):
     """Get each asteroid orbiting class"""
@@ -62,34 +69,39 @@ def get_asteroid_orbit_class(individual_asteroid_data):
 
     return orbit_class
 
+
 def get_asteroid_observation_dates(individual_asteroid_data):
     """Get each asteroid observation dates"""
     observation_dates = individual_asteroid_data['orbital_data']
 
     return observation_dates
 
+
 def print_neo_info(neo_info):
     """Print the informations for each asteroid"""
     for asteroid in neo_info:
-            print(f"ASTEROID #{asteroid}")
-            print(f"\t- ID -> {neo_info[asteroid]['id']}")
-            print(f"\t- Name -> {neo_info[asteroid]['name']}")
-            print("\t- Observation Dates:")
-            print(f"\t\t*First -> {neo_info[asteroid]['first_observation']}")
-            print(f"\t\t*Last -> {neo_info[asteroid]['last_observation']}")
-            print(f"\t- Potentially Hazardous Asteroid -> {neo_info[asteroid]['hazardous']}")
-            print(f"\t- Close Approach Date -> {neo_info[asteroid]['close_approach_date']}")
-            print(f"\t- Current Orbiting Body -> {neo_info[asteroid]['current_orbiting_body']}")
-            print("\t- Diametre:")
-            print(f"\t\t*Min -> {int(neo_info[asteroid]['diameter_meter']['estimated_diameter_min'])}m / {int(neo_info[asteroid]['diameter_feet']['estimated_diameter_min'])}ft")
-            print(f"\t\t*Max -> {int(neo_info[asteroid]['diameter_meter']['estimated_diameter_max'])}m / {int(neo_info[asteroid]['diameter_feet']['estimated_diameter_max'])}ft")
-            print("\t- Relative Velocity:")
-            print(f"\t\t*Km/h -> {neo_info[asteroid]['velocity_km']}")
-            print(f"\t\t*Miles/h -> {neo_info[asteroid]['velocity_miles']}")
-            print("\t- All Orbiting Bodies -> ", end='')
-            print(*neo_info[asteroid]['orbiting_bodies'], sep=', ')
-            print("\t- Orbit Class Type:")
-            print(f"\t\t*{neo_info[asteroid]['orbit_class_type']} -> {neo_info[asteroid]['orbit_type_description']}")
+        print(f"ASTEROID #{asteroid}")
+        print(f"\t- ID -> {neo_info[asteroid]['id']}")
+        print(f"\t- Name -> {neo_info[asteroid]['name']}")
+        print("\t- Observation Dates:")
+        print(f"\t\t*First -> {neo_info[asteroid]['first_observation']}")
+        print(f"\t\t*Last -> {neo_info[asteroid]['last_observation']}")
+        print(f"\t- Potentially Hazardous Asteroid -> {neo_info[asteroid]['hazardous']}")
+        print(f"\t- Close Approach Date -> {neo_info[asteroid]['close_approach_date']}")
+        print(f"\t- Current Orbiting Body -> {neo_info[asteroid]['current_orbiting_body']}")
+        print("\t- Diametre:")
+        print(f"\t\t*Min -> {int(neo_info[asteroid]['diameter_meter']['estimated_diameter_min'])}m / 
+              {int(neo_info[asteroid]['diameter_feet']['estimated_diameter_min'])}ft")
+        print(f"\t\t*Max -> {int(neo_info[asteroid]['diameter_meter']['estimated_diameter_max'])}m / 
+              {int(neo_info[asteroid]['diameter_feet']['estimated_diameter_max'])}ft")
+        print("\t- Relative Velocity:")
+        print(f"\t\t*Km/h -> {neo_info[asteroid]['velocity_km']}")
+        print(f"\t\t*Miles/h -> {neo_info[asteroid]['velocity_miles']}")
+        print("\t- All Orbiting Bodies -> ", end='')
+        print(*neo_info[asteroid]['orbiting_bodies'], sep=', ')
+        print("\t- Orbit Class Type:")
+        print(f"\t\t*{neo_info[asteroid]['orbit_class_type']} -> {neo_info[asteroid]['orbit_type_description']}")
+
 
 def fetch_and_print_asteroid_info(BASE_URL, API_KEY, start_date, end_date):
     """Fetch and print each information for each asteroid"""
@@ -110,15 +122,17 @@ def fetch_and_print_asteroid_info(BASE_URL, API_KEY, start_date, end_date):
     else:
         print("NEO Data No Found!")
 
+
 def clear_console():
     """Clear the console"""
     os.system("cls || clear")
+
 
 def main():
     """Program Interfact"""
     clear_console()
     print("""
-        NASA ~ ASTEROIDS NeoWs 
+        NASA ~ ASTEROIDS NeoWs
     (Near Earth Object Web Service)
         """)
 
@@ -127,7 +141,7 @@ def main():
     end_date    = (datetime.today()).strftime("%Y-%m-%d")
     start_date  = (datetime.today() - timedelta(days=timelapse)).strftime("%Y-%m-%d")
     BASE_URL    = "https://api.nasa.gov/neo/rest/v1/feed?"
-    API_KEY     = ""# --- your key API here --- #
+    API_KEY     = ""  # --- your key API here --- #
 
     fetch_and_print_asteroid_info(BASE_URL, API_KEY, start_date, end_date)
 
