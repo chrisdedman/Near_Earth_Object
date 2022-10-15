@@ -45,8 +45,8 @@ def get_neo_info(near_earth_object, dates):
     """Get a list of informations about each Near Earth Object"""
 
     neo_info = defaultdict(list)
-    for element_key in range(len(dates)):
-        for object_type in range(len(near_earth_object[dates[element_key]])):
+    for element_key, item in enumerate(dates):
+        for object_type in range(len(near_earth_object[item])):
             neo_info[len(neo_info)+1] = get_asteroid_info(near_earth_object, dates, element_key, object_type);
                 
     return neo_info;
@@ -55,8 +55,8 @@ def get_asteroid_orbiting_bodies(individual_asteroid_data):
     """Get each asteroid orbiting bodies"""
 
     passing_by_list = set()
-    for i in range(len(individual_asteroid_data['close_approach_data'])):
-        passing_by_list.add(individual_asteroid_data['close_approach_data'][i]['orbiting_body'])
+    for i, item in enumerate(individual_asteroid_data['close_approach_data']):
+        passing_by_list.add(item['orbiting_body'])
 
     return passing_by_list;
 
