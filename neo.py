@@ -28,7 +28,7 @@ def get_asteroid_info(near_earth_object, dates, element_key, object_type):
     asteroid_info['name']                   = asteroid['name'];
     asteroid_info['diameter_meter']         = asteroid['estimated_diameter']['meters'];
     asteroid_info['diameter_feet']          = asteroid['estimated_diameter']['feet'];
-    asteroid_info['hazardous']              = "Yes" if asteroid['is_potentially_hazardous_asteroid'] == True else "No";
+    asteroid_info['hazardous']              = "Yes" if asteroid['is_potentially_hazardous_asteroid'] is True else "No";
     asteroid_info['close_approach_date']    = asteroid_close_approach_data['close_approach_date_full'];
     asteroid_info['current_orbiting_body']  = asteroid_close_approach_data['orbiting_body'];
     asteroid_info['velocity_km']            = asteroid_close_approach_data['relative_velocity']['kilometers_per_hour'];
