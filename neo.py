@@ -90,10 +90,8 @@ def print_neo_info(neo_info):
         print(f"\t- Close Approach Date -> {neo_info[asteroid]['close_approach_date']}")
         print(f"\t- Current Orbiting Body -> {neo_info[asteroid]['current_orbiting_body']}")
         print("\t- Diametre:")
-        print(f"\t\t*Min -> {int(neo_info[asteroid]['diameter_meter']['estimated_diameter_min'])}m / 
-              {int(neo_info[asteroid]['diameter_feet']['estimated_diameter_min'])}ft")
-        print(f"\t\t*Max -> {int(neo_info[asteroid]['diameter_meter']['estimated_diameter_max'])}m / 
-              {int(neo_info[asteroid]['diameter_feet']['estimated_diameter_max'])}ft")
+        print(f"\t\t*Min -> {int(neo_info[asteroid]['diameter_meter']['estimated_diameter_min'])}m / {int(neo_info[asteroid]['diameter_feet']['estimated_diameter_min'])}ft")
+        print(f"\t\t*Max -> {int(neo_info[asteroid]['diameter_meter']['estimated_diameter_max'])}m / {int(neo_info[asteroid]['diameter_feet']['estimated_diameter_max'])}ft")
         print("\t- Relative Velocity:")
         print(f"\t\t*Km/h -> {neo_info[asteroid]['velocity_km']}")
         print(f"\t\t*Miles/h -> {neo_info[asteroid]['velocity_miles']}")
