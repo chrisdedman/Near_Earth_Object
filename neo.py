@@ -6,7 +6,6 @@ import os
 
 def get_api_data(BASE_URL, API_KEY, start_date, end_date):
     """Get NASA API Data for Near Earth Object Asteroids Tracking"""
-
     API = get(f"{BASE_URL}start_date={start_date}&end_date={end_date}&api_key={API_KEY}")
     if API.status_code == 200:
         return API.json()
@@ -14,7 +13,6 @@ def get_api_data(BASE_URL, API_KEY, start_date, end_date):
 
 def get_asteroid_info(near_earth_object, dates, element_key, object_type):
     """Get Asteroid Info Structured into a Dictionary"""
-
     asteroid_info   = defaultdict(list)
     asteroid        = near_earth_object[dates[element_key]][object_type]
 
@@ -43,7 +41,6 @@ def get_asteroid_info(near_earth_object, dates, element_key, object_type):
 
 def get_neo_info(near_earth_object, dates):
     """Get a list of informations about each Near Earth Object"""
-
     neo_info = defaultdict(list)
     for element_key, item in enumerate(dates):
         for object_type in range(len(near_earth_object[item])):
@@ -53,7 +50,6 @@ def get_neo_info(near_earth_object, dates):
 
 def get_asteroid_orbiting_bodies(individual_asteroid_data):
     """Get each asteroid orbiting bodies"""
-
     passing_by_list = set()
     for i, item in enumerate(individual_asteroid_data['close_approach_data']):
         passing_by_list.add(item['orbiting_body'])
@@ -62,21 +58,18 @@ def get_asteroid_orbiting_bodies(individual_asteroid_data):
 
 def get_asteroid_orbit_class(individual_asteroid_data):
     """Get each asteroid orbiting class"""
-
     orbit_class = individual_asteroid_data['orbital_data']['orbit_class']
 
     return orbit_class
 
 def get_asteroid_observation_dates(individual_asteroid_data):
     """Get each asteroid observation dates"""
-
     observation_dates = individual_asteroid_data['orbital_data']
 
     return observation_dates
 
 def print_neo_info(neo_info):
     """Print the informations for each asteroid"""
-
     for asteroid in neo_info:
             print(f"ASTEROID #{asteroid}")
             print(f"\t- ID -> {neo_info[asteroid]['id']}")
@@ -100,7 +93,6 @@ def print_neo_info(neo_info):
 
 def fetch_and_print_asteroid_info(BASE_URL, API_KEY, start_date, end_date):
     """Fetch and print each information for each asteroid"""
-
     data = get_api_data(BASE_URL, API_KEY, start_date, end_date)
     if data:
         num_of_object       = data["element_count"]
@@ -120,12 +112,10 @@ def fetch_and_print_asteroid_info(BASE_URL, API_KEY, start_date, end_date):
 
 def clear_console():
     """Clear the console"""
-
     os.system("cls || clear")
 
 def main():
     """Program Interfact"""
-
     clear_console()
     print("""
         NASA ~ ASTEROIDS NeoWs 
